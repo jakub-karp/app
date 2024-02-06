@@ -4,17 +4,19 @@ import { Dialog } from 'primereact/dialog';
 import { Messages } from 'primereact/messages';
 import TrackAdd from './TrackAdd';
 import { useRef } from 'react';
+import TrackEdit from './TrackEdit';
 
 const TracksList = () => {
     const [tracks, setTracks] = useState([]);
     const [visibleAdd, setVisableAdd] = useState(false);
     const [visibleEdit, setVisableEdit] = useState(false);
+    const [selectedTrack, setSelectedTrack] = useState(null);
     const msgs = useRef(null);
     useEffect(() => {
-        LoadingClients();
+        LoadingTracks();
     },[]);
 
-    const LoadingClients = () =>{
+    const LoadingTracks = () =>{
         fetch("https://tnaiprojektapi20240205160915.azurewebsites.net/api/tracks", { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
@@ -39,7 +41,7 @@ const TracksList = () => {
 
         setTimeout(() => {
             clearMessages();
-            LoadingClients();
+            LoadingTracks();
         }, 3000);
     }
 
@@ -58,6 +60,11 @@ const TracksList = () => {
         msgs.current.clear();
     };
 
+    const handleEditClick = (track) => {
+        setVisableEdit(true);
+        setSelectedTrack(track);
+      };
+
   return (
     <div>
         <div className='flex justify-content-center flex-wrap'>
@@ -65,10 +72,10 @@ const TracksList = () => {
             <div className='flex flex-column align-items-center justify-content-center text-color bg-indigo-700 font-bold m-2 border-round' style={{ minWidth: '200px', minHeight: '100px' }} key={item.id}>
                 <h2>{item.name}</h2>
                 <div className='flex mb-2'>
-                    <Button className="mx-2 text-color" icon="pi pi-pencil" rounded text aria-label="Edytuj" onClick={() => setVisableEdit(true)}/>
+                    <Button className="mx-2 text-color" icon="pi pi-pencil" rounded text aria-label="Edytuj" onClick={() => handleEditClick(item)}/>
                     <Button className="mx-2 text-color" icon="pi pi-times" rounded text aria-label="Usuń" onClick={() => deleteTrack(item.id)} />
-                    <Dialog header={`Edytuj: ${item.name}`} visible={visibleEdit} style={{width: '50vw'}} onHide={() => setVisableEdit(false)}>
-                        <p>Test</p>
+                    <Dialog header={`Edytuj: ${selectedTrack ? `${selectedTrack.name}` : ''}`} visible={visibleEdit} style={{width: '50vw'}} onHide={() => {setVisableEdit(false); setSelectedTrack(null);}}>
+                        <TrackEdit visibleEdit={setVisableEdit} loadingTracks={LoadingTracks} props={selectedTrack}/>
                     </Dialog>
                 </div>
             </div>
@@ -77,7 +84,7 @@ const TracksList = () => {
         <div className='flex justify-content-end flex-wrap mt-4'>
             <Button className="flex align-items-center justify-content-center text-color bg-indigo-700 px-4" label="Dodaj" icon="pi pi-plus" onClick={() => setVisableAdd(true)}/>
             <Dialog header="Dodaj nowy tor" visible={visibleAdd} style={{width: '50vw'}} onHide={() => setVisableAdd(false)}>
-                <TrackAdd visibleAdd={setVisableAdd} loadingClients={LoadingClients}/>
+                <TrackAdd visibleAdd={setVisableAdd} loadingTracks={LoadingTracks}/>
             </Dialog>
         </div>
         <Messages ref={msgs} />

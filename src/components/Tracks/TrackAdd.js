@@ -5,7 +5,7 @@ import { Messages } from 'primereact/messages';
 import { useRef } from 'react';
 
 
-const TrackAdd = ({visibleAdd, loadingClients}) => {
+const TrackAdd = ({visibleAdd, loadingTracks}) => {
     const [newName, setNewName] = useState("");
     const msgs = useRef(null);
 
@@ -31,7 +31,7 @@ const TrackAdd = ({visibleAdd, loadingClients}) => {
                 setNewName("");
                 addMessagesOK();
                 setTimeout(() => {
-                    loadingClients();
+                    loadingTracks();
                     clearMessages();
                     visibleAdd(false);
                 }, 2000);
