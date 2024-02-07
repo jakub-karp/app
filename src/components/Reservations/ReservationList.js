@@ -11,7 +11,6 @@ const ReservationList = () => {
     const currenttimestamp = Date.now();
     const [visibleAdd, setVisableAdd] = useState(false);
     const [visibleEdit, setVisableEdit] = useState(false);
-    const [selectedClient, setSelectedClient] = useState(null);
     const [selectedReservation, setSelectedReservation] = useState(null);
     const msgs = useRef(null);
 
@@ -114,7 +113,7 @@ const ReservationList = () => {
                 <div className='flex justify-content-end mb-2'>
                     <Button className="mx-2 text-color" icon="pi pi-pencil" rounded text aria-label="Edytuj" onClick={() => handleEditClick(item)}/>
                     <Button className="mx-2 text-color" icon="pi pi-times" rounded text aria-label="Usuń" onClick={() => deleteReservation(item.id)} />
-                    <Dialog header={`Edytuj: Rezerwacja nr ${selectedReservation ? `${selectedReservation.id}` : ''}`} visible={visibleEdit} style={{ width: '50vw' }} onHide={() => { setVisableEdit(false); setSelectedClient(null); }}>
+                    <Dialog header={`Edytuj: Rezerwacja nr ${selectedReservation ? `${selectedReservation.id}` : ''}`} visible={visibleEdit} style={{ width: '50vw' }} onHide={() => { setVisableEdit(false); setSelectedReservation(null); }}>
                         <ReservationEdit visibleEdit={setVisableEdit} loadingReservations={LoadingReservations} props={selectedReservation}/>
                     </Dialog>
                 </div>
