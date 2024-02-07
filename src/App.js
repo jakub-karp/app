@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import ClientViews from './views/ClientViews';
 import ReservationView from './views/ReservationView';
 import TrackViews from './views/TrackViews';
+import logo from './assets/logo.png';
 
 function App() {
   let items = [
@@ -11,11 +12,12 @@ function App() {
     { label: 'Tory', icon: 'pi pi-mobile', url: '/tracks' },
     { label: 'Klienci', icon: 'pi pi-user', url: '/clients' },
     { label: 'Rezerwacje', icon: 'pi pi-calendar-plus', url: '/reservations' }
-];
+  ];
   return (
     <div className="">
-      <header className="flex justify-content-center align-items-center bg-indigo-700 w-full border-round-lg">
-        <h2 className="flex justify-content-center align-items-center">Kręgielnia</h2>
+      <header className="flex justify-content-left align-items-center bg-indigo-700 w-full border-round-lg">
+        <img src={logo} style={{ height: 70, margin: 6}} alt="Logo" />
+        <h2 className="flex justify-content-center align-items-center">Twoja Kręgielnia</h2>
         
       </header>
       <div className='flex flex-wrap justify-content-left'>

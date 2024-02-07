@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {PrimeReactProvider} from 'primereact/api';
-import 'primereact/resources/themes/mdc-dark-deeppurple/theme.css';
+import 'primereact/resources/themes/lara-dark-blue/theme.css';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css'
 
