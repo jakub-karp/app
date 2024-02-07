@@ -53,8 +53,6 @@ const ReservationList = () => {
 
     const isActive = (timeStart, timeEnd) => {
         if(currenttimestamp >= timeStart && currenttimestamp <= timeEnd){
-            console.log(currenttimestamp);
-            console.log(timeStart);
             return true;
         }
         else{
